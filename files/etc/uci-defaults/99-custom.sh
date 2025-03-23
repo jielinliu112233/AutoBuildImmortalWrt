@@ -3,6 +3,7 @@
 # Log file for debugging
 LOGFILE="/tmp/uci-defaults-log.txt"
 echo "Starting 99-custom.sh at $(date)" >> $LOGFILE
+
 # 设置默认防火墙规则，方便虚拟机首次访问 WebUI
 uci set firewall.@zone[1].input='ACCEPT'
 
@@ -40,17 +41,17 @@ if [ "$count" -eq 1 ]; then
    # 单网口设备 不支持修改ip 不要在此处修改ip 
    uci set network.lan.proto='dhcp'
 elif [ "$count" -gt 1 ]; then
-   # 提取第一个接口作为WAN
-   wan_ifname=$(echo "$ifnames" | awk '{print $1}')
+   # 提取最后一个接口作为WAN
+   wan_ifname=$(echo "$ifnames" | awk '{print $NF}')
    # 剩余接口保留给LAN
-   lan_ifnames=$(echo "$ifnames" | cut -d ' ' -f2-)
+   lan_ifnames=$(echo "$ifnames" | awk '{$NF=""; print $0}' | awk '{$1=$1};1')
    # 设置WAN接口基础配置
    uci set network.wan=interface
-   # 提取第一个接口作为WAN
+   # 提取最后一个接口作为WAN
    uci set network.wan.device="$wan_ifname"
    # WAN接口默认DHCP
    uci set network.wan.proto='dhcp'
-   # 设置WAN6绑定网口eth0
+   # 设置WAN6绑定网口
    uci set network.wan6=interface
    uci set network.wan6.device="$wan_ifname"
    # 更新LAN接口成员
@@ -70,9 +71,9 @@ elif [ "$count" -gt 1 ]; then
    # LAN口设置静态IP
    uci set network.lan.proto='static'
    # 多网口设备 支持修改为别的ip地址
-   uci set network.lan.ipaddr='192.168.100.1'
+   uci set network.lan.ipaddr='10.0.0.101'  # 修改为 10.0.0.101
    uci set network.lan.netmask='255.255.255.0'
-   echo "set 192.168.100.1 at $(date)" >> $LOGFILE
+   echo "set 10.0.0.101 at $(date)" >> $LOGFILE
    # 判断是否启用 PPPoE
    echo "print enable_pppoe value=== $enable_pppoe" >> $LOGFILE
    if [ "$enable_pppoe" = "yes" ]; then
@@ -90,7 +91,6 @@ elif [ "$count" -gt 1 ]; then
       echo "PPPoE is not enabled. Skipping configuration." >> $LOGFILE
    fi
 fi
-
 
 # 设置所有网口可访问网页终端
 uci delete ttyd.@ttyd[0].interface
