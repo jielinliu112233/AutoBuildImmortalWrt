@@ -38,8 +38,6 @@ PACKAGES="$PACKAGES luci-i18n-samba4-zh-cn"
 PACKAGES="$PACKAGES htop nano netdata luci-app-netdata"
 # DNS 优化
 PACKAGES="$PACKAGES smartdns luci-app-smartdns luci-i18n-smartdns-zh-cn"
-# 易有云
-PACKAGES="$PACKAGES luci-app-linkease luci-i18n-linkease-zh-cn"
 # KMS 服务
 PACKAGES="$PACKAGES vlmcsd luci-app-vlmcsd luci-i18n-vlmcsd-zh-cn"
 # 扩展工具
@@ -48,7 +46,6 @@ PACKAGES="$PACKAGES aria2 luci-app-aria2 luci-i18n-aria2-zh-cn"
 PACKAGES="$PACKAGES vsftpd"
 PACKAGES="$PACKAGES transmission-daemon luci-app-transmission"
 PACKAGES="$PACKAGES openvpn luci-app-openvpn"
-PACKAGES="$PACKAGES wireguard luci-app-wireguard"
 PACKAGES="$PACKAGES luci-app-usb-printer kmod-usb-serial"
 # ▲▲▲ 新增结束 ▲▲▲
 # 增加几个必备组件 方便用户安装iStore
