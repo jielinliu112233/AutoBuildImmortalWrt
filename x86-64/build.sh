@@ -36,7 +36,7 @@ PACKAGES="$PACKAGES luci-i18n-samba4-zh-cn luci-app-ksmbd"  # SMBv3加速
 ############# DNS全矩阵方案 #############
 PACKAGES="$PACKAGES luci-app-mosdns mosdns"                # DNS分流核心
 PACKAGES="$PACKAGES luci-app-adguardhome"                 # 广告过滤
-PACKAGES="$PACKAGES luci-app-smartdns bind-dig"            # 智能解析
+# PACKAGES="$PACKAGES luci-app-smartdns bind-dig"            # 智能解析
 PACKAGES="$PACKAGES dnsmasq-full luci-app-dnsfilter"       # 增强DNS
 
 ############# 科学上网全家桶 #############
