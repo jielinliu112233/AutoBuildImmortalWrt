@@ -40,10 +40,10 @@ PACKAGES="$PACKAGES luci-app-adguardhome"                 # 广告过滤
 PACKAGES="$PACKAGES dnsmasq-full luci-app-dnsfilter"       # 增强DNS
 
 ############# 科学上网全家桶 #############
-PACKAGES="$PACKAGES luci-app-passwall"                    # 全协议支持
+# PACKAGES="$PACKAGES luci-app-passwall"                    # 全协议支持
 PACKAGES="$PACKAGES luci-app-openclash"                   # 规则订阅
 PACKAGES="$PACKAGES luci-app-homeproxy"                   # 新一代代理
-PACKAGES="$PACKAGES luci-app-ssr-plus"                    # 兼容旧版
+# PACKAGES="$PACKAGES luci-app-ssr-plus"                    # 兼容旧版
 
 ############# 网络加速套件 #############
 PACKAGES="$PACKAGES luci-app-turboacc"                    # 全锥型NAT
