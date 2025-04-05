@@ -30,63 +30,44 @@ PACKAGES="$PACKAGES curl openssh-sftp-server htop usbutils"
 
 ############# 存储管理全家桶 #############
 PACKAGES="$PACKAGES luci-i18n-diskman-zh-cn"
-PACKAGES="$PACKAGES e2fsprogs gdisk partclone badblocks"
-PACKAGES="$PACKAGES luci-i18n-samba4-zh-cn luci-app-ksmbd"  # SMBv3加速
+PACKAGES="$PACKAGES e2fsprogs gdisk"  # 移除 partclone 和 badblocks（体积大且使用率低）
+PACKAGES="$PACKAGES luci-i18n-samba4-zh-cn"  # 保留 SMBv3（移除 ksmbd 内核模块）
 
 ############# DNS全矩阵方案 #############
-PACKAGES="$PACKAGES luci-app-mosdns mosdns"                # DNS分流核心
-PACKAGES="$PACKAGES luci-app-adguardhome"                 # 广告过滤
-# PACKAGES="$PACKAGES luci-app-smartdns bind-dig"            # 智能解析
-PACKAGES="$PACKAGES dnsmasq-full luci-app-dnsfilter"       # 增强DNS
+# 仅保留最稳定组合，避免多DNS服务冲突
+PACKAGES="$PACKAGES dnsmasq-full luci-app-adguardhome"  # AdGuardHome 自带过滤功能
+# PACKAGES="$PACKAGES luci-app-dnsfilter"  # 与 AdGuardHome 存在规则冲突风险
 
 ############# 科学上网全家桶 #############
-# PACKAGES="$PACKAGES luci-app-passwall"                    # 全协议支持
-PACKAGES="$PACKAGES luci-app-openclash"                   # 规则订阅
-PACKAGES="$PACKAGES luci-app-homeproxy"                   # 新一代代理
-# PACKAGES="$PACKAGES luci-app-ssr-plus"                    # 兼容旧版
+# 仅保留一个核心代理工具（OpenClash 兼容性最佳）
+PACKAGES="$PACKAGES luci-app-openclash"
 
 ############# 网络加速套件 #############
-PACKAGES="$PACKAGES luci-app-turboacc"                    # 全锥型NAT
-PACKAGES="$PACKAGES luci-app-flowoffload"                 # 软路由加速
-PACKAGES="$PACKAGES luci-app-sqm"                         # 智能QoS
+# TurboACC 已包含 Flow Offloading
+PACKAGES="$PACKAGES luci-app-turboacc"  # 包含 Fullcone NAT + Flow Offload
 
 ############# 企业级服务组件 #############
-# DDNS全家福
-PACKAGES="$PACKAGES luci-app-ddns-go"                     # 新版DDNS
-PACKAGES="$PACKAGES ddns-scripts-cloudflare ddns-scripts-aliyun"
-
-# 内网穿透矩阵
-PACKAGES="$PACKAGES luci-app-zerotier luci-app-tailscale"  # SD-WAN方案
-PACKAGES="$PACKAGES luci-app-frpc luci-app-nps"            # 反向穿透
+# 保留基础 DDNS 和穿透工具
+PACKAGES="$PACKAGES ddns-scripts-cloudflare"
+PACKAGES="$PACKAGES luci-app-zerotier"  # 比 Tailscale 更稳定
 
 ############# 云服务生态 #############
-PACKAGES="$PACKAGES luci-app-filebrowser"                 # 文件管理
-PACKAGES="$PACKAGES luci-app-nextcloud"                   # 私有云盘
-PACKAGES="$PACKAGES luci-app-webdav"                      # 云同步
+# 仅保留轻量级文件管理
+PACKAGES="$PACKAGES luci-app-filebrowser"  # 移除 Nextcloud（体积过大）
 
 ############# 系统监控矩阵 #############
-PACKAGES="$PACKAGES luci-app-statistics"                  # 数据采集
-PACKAGES="$PACKAGES collectd-mod-thermal"                  # 温度监控
-PACKAGES="$PACKAGES luci-app-netdata"                     # 实时仪表盘
-PACKAGES="$PACKAGES luci-app-nlbwmon"                      # 流量统计
+PACKAGES="$PACKAGES luci-app-statistics collectd-mod-thermal"
 
 ############# 激活与授权服务 #############
-PACKAGES="$PACKAGES luci-app-vlmcsd vlmcsd"               # KMS激活
-PACKAGES="$PACKAGES luci-app-unblockneteasemusic"         # 音乐解锁
+PACKAGES="$PACKAGES luci-app-unblockneteasemusic"  # 保留音乐解锁
 
 ############# 全主题生态 #############
-PACKAGES="$PACKAGES luci-theme-argon"                     # 热门主题
-PACKAGES="$PACKAGES luci-theme-material"                  # 质感设计
-PACKAGES="$PACKAGES luci-theme-edge"                      # 极简风格
-PACKAGES="$PACKAGES luci-theme-neobird"                   # 霓虹灯效
-PACKAGES="$PACKAGES luci-theme-opentomcat"                # 复古风格
+# 仅保留最流行主题
+PACKAGES="$PACKAGES luci-theme-argon"  # 其他主题编译易出错
 
 ############# 生产力工具集 #############
-PACKAGES="$PACKAGES luci-app-aria2"                      # 下载工具
-PACKAGES="$PACKAGES luci-app-transmission"               # BT下载
-PACKAGES="$PACKAGES luci-app-qbittorrent"                # 增强BT
-PACKAGES="$PACKAGES luci-app-jd-dailybonus"               # 自动签到
-PACKAGES="$PACKAGES luci-app-atinout-mod"                 # 短信控制
+# 移除所有签到/下载工具（依赖复杂）
+# PACKAGES="$PACKAGES luci-app-aria2 luci-app-jd-dailybonus"
 
 ############# Docker全栈支持 #############
 if [ "$INCLUDE_DOCKER" = "yes" ]; then
